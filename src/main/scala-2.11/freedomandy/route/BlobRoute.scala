@@ -42,7 +42,7 @@ case class BlobRoute(actorSystem: ActorSystem, actorMaterializer: ActorMateriali
 
   def route =
     pathPrefix("apis" / "v1") {
-      path("container" / Segment / "file") { container =>
+      path("container" / Segment / "blob") { container =>
         handleExceptions(exceptionHandler) {
           pathEnd {
             post {
@@ -77,7 +77,7 @@ case class BlobRoute(actorSystem: ActorSystem, actorMaterializer: ActorMateriali
             }
           }
         }
-      } ~ path("container" / Segment / "file" / Segment) { (container,file) =>
+      } ~ path("container" / Segment / "blob" / Segment) { (container,file) =>
         handleExceptions(exceptionHandler) {
           get {
             implicit val timeout: Timeout = 12.seconds
