@@ -15,7 +15,6 @@ object Boot extends App {
 
   implicit val system = ActorSystem("storage-system")
   implicit val materializer = ActorMaterializer()
-  // needed for the future flatMap/onComplete in the end
   implicit val executionContext = system.dispatcher
 
   val fileRoute = BlobRoute(system, materializer)

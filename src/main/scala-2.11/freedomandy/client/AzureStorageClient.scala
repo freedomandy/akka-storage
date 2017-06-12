@@ -83,7 +83,6 @@ class AzureStorageClient(protocol: String, accountName: String, accountKey: Stri
   }
 
   def listBlobSas(container: String, permission: String, duration: Int): List[BlobInfo] = {
-    // Set Sas policy
     val containerRef: CloudBlobContainer = blobServiceClient.getContainerReference(container)
     val sasConstraints: SharedAccessBlobPolicy = new SharedAccessBlobPolicy()
     val calendar = Calendar.getInstance()
