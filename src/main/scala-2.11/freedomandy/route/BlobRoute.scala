@@ -1,26 +1,20 @@
 package freedomandy.route
 
-import java.io.File
-
 import akka.actor.{ActorSystem, Props}
 import akka.http.scaladsl.Http
-import akka.http.scaladsl.marshalling.ToResponseMarshaller
+import akka.http.scaladsl.model.HttpRequest
 import akka.http.scaladsl.model.headers.ContentDispositionTypes.attachment
-import akka.http.scaladsl.model.headers.{`Content-Disposition`, `Content-Type`}
-import akka.http.scaladsl.model.{ContentTypes, HttpRequest, HttpResponse, Multipart}
-import akka.http.scaladsl.model.Multipart.BodyPart
+import akka.http.scaladsl.model.headers.`Content-Disposition`
 import akka.http.scaladsl.server.{Directives, ExceptionHandler}
-import akka.stream.ActorMaterializer
-import akka.stream.scaladsl.{FileIO, Framing}
-import akka.util.{ByteString, Timeout}
 import akka.pattern.ask
-import freedomandy.data.{BlobInfo, BlobUploadInfo, ErrorInfo}
+import akka.stream.ActorMaterializer
+import akka.util.Timeout
+import freedomandy.data.ErrorInfo
 import freedomandy.exception.BaseException
-import freedomandy.protocol.{BlobResultMessage, ListBlobRequest, _}
+import freedomandy.protocol.{ListBlobRequest, _}
 import freedomandy.service.BlobActor
 import org.slf4j.LoggerFactory
 
-import scala.concurrent.Future
 import scala.concurrent.duration._
 
 /**
@@ -62,7 +56,7 @@ case class BlobRoute(actorSystem: ActorSystem, actorMaterializer: ActorMateriali
             }
           }
         }
-      } ~ path("container" / Segment) { container =>
+      } ~ path("container" / Segment / "blobs") { container =>
         handleExceptions(exceptionHandler) {
           pathEnd {
             get {
