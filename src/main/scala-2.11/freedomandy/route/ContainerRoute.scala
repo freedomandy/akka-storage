@@ -39,7 +39,7 @@ case class ContainerRoute(actorSystem: ActorSystem) extends Directives with Cust
             case _ => throw BaseException("Internal Error")
           }
 
-          complete(200, result)
+          complete(201, result)
         } ~ delete {
           implicit val timeout: Timeout = 12.seconds
           val result = (system.actorOf(Props[ContainerActor]) ? DeleteContainerRequest(containerName)).map {
