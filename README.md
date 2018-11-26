@@ -1,5 +1,5 @@
 # akka-storage
-Storage restful api example based on Akka-Http and Azure Storage
+Storage restful api example based on Akka-Http and Azure Storage Account
 
 _Bolb API_
 1. **Upload blob(Chunk upload)**: curl -X POST http://127.0.0.1:8080/apis/v1/container/{containerName}/blob -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' -F file=@{uploadFile}
